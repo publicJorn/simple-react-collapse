@@ -1,0 +1,15 @@
+.Collapse__header {
+  border-bottom: 1px solid yellowgreen;
+  background-color: mediumslateblue;
+  cursor: pointer;
+}
+
+.Collapse__content {
+  display: none;
+  padding: 1rem;
+  background-color: mediumaquamarine;
+}
+
+.Collapse__isOpen {
+  display: block;
+}
