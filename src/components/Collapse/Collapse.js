@@ -26,10 +26,6 @@ const Collapse = class extends Component {
     }
   }
 
-  shouldComponentUpdate () {
-    return true
-  }
-
   componentWillMount () {
     if (this.props.groupId) {
       groupManager.add(this)
@@ -42,20 +38,21 @@ const Collapse = class extends Component {
     }
   }
 
+  componentWillUpdate (nextProps, nextState) {
+    this.props.onToggle(nextState)
+  }
+
   renderHeader () {
     if (typeof this.props.toggler === 'string') {
       return <div className={styles.header} onClick={this.toggle}>
         {this.props.toggler}
       </div>
     }
+
     return React.cloneElement(this.props.toggler, {
       collapseIsOpen: this.state.isOpen,
       collapseToggle: this.toggle,
     })
-  }
-
-  componentWillUpdate (nextProps, nextState) {
-    this.props.onToggle(nextState)
   }
 
   render () {
@@ -65,7 +62,6 @@ const Collapse = class extends Component {
       { [styles.isOpen]: this.state.isOpen },
     )
 
-    // TODO: Does this.header get `isOpen` change when it's an element?
     return (
       <div>
         {this.renderHeader()}
@@ -76,7 +72,7 @@ const Collapse = class extends Component {
     )
   }
 
-  toggle (evt, force) {
+  toggle () {
     if (this.props.groupId && !this.state.isOpen) {
       groupManager.focusOn(this)
     }
